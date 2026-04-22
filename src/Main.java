@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class Main {
+public class BuscarDepartamento {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -11,7 +11,7 @@ public class Main {
 
         try(Connection conn = DriverManager.getConnection(url, usuario, password)){
 
-            System.out.println("Marca la id del departamento que quieres buscar");
+            System.out.println("Marca la id del departamento que quieres buscar"); //pedimos id
             int buscar = sc.nextInt();
 
             String sql = "SELECT E_ID, E_NOMBRE, E_SALARIO, DEPARTAMENTO_ID, P_NOMBRE FROM P_EMPLEADO JOIN P_DEPARTAMENTO ON P_ID = DEPARTAMENTO_ID" +
@@ -19,10 +19,12 @@ public class Main {
 
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, buscar);
+            stmt.setInt(1, buscar); //añadimos la id a buscar
 
             ResultSet rs = stmt.executeQuery();
 
+            //mostramos el departamento de esa id 
+            
             while (rs.next()) {
                 int id = rs.getInt("E_ID");
                 String Enombre = rs.getString("E_NOMBRE");
